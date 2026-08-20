@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Atenciones Urgencia - Vista por semanas - Servicios</title></head>
+<body>
+<div id="cabecera-portal" style="background:#eee;padding:6px">
+  <a href="http://www.deis.cl/?p=41">Volver</a> |
+  <a href="http://www.deis.cl/?p=41">Descargar como Excel del sitio</a> |
+  <a href="http://www.deis.cl/">DEIS</a>
+</div>
+<h2>Atenciones de Urgencia - Vista por Semanas Estadísticas</h2>
+<div id="prompts">
+ <div class="grp"><label>Año estadístico *</label><br>
+  <select id="PRMT_SV_N16FFCEC0x18BF3DBC_NS_" data-role="anio" multiple size="10"></select><br>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N10008">Seleccionar todo</a>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N10008">Deseleccionar todo</a></div>
+
+ <div class="grp"><label>Semana estadística *</label><br>
+  <select id="PRMT_SV_N16FFCEC0x18BF4158_NS_" data-role="semana" multiple size="10"></select><br>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N10022">Seleccionar todo</a>
+  <a href="javascript:void(0)">Deseleccionar todo</a></div>
+
+ <div class="grp"><label>Incluir tablas por grupos de edad</label><br>
+  <span class="cbgrp"><input type="checkbox" id="N16FFCEC0x3557F0A4_NS_" aria-checked="false"><span>Niños menores de 1 año</span><a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F078_NS_">Seleccionar todo</a><a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F078_NS_">Deseleccionar todo</a></span><br>
+  <span class="cbgrp"><input type="checkbox" id="N16FFCEC0x3557F154_NS_" aria-checked="false"><span>Niños de 1 a 4 años</span><a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F128_NS_">Seleccionar todo</a><a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F128_NS_">Deseleccionar todo</a></span><br>
+  <span class="cbgrp"><input type="checkbox" id="N16FFCEC0x3557F204_NS_" aria-checked="false"><span>Niños de 5 a 14 años</span><a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F1D8_NS_">Seleccionar todo</a><a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F1D8_NS_">Deseleccionar todo</a></span><br>
+  <span class="cbgrp"><input type="checkbox" id="N16FFCEC0x3557F2B4_NS_" aria-checked="false"><span>Adultos de 15 a 64 años</span><a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F288_NS_">Seleccionar todo</a><a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F288_NS_">Deseleccionar todo</a></span><br>
+  <span class="cbgrp"><input type="checkbox" id="N16FFCEC0x3557F364_NS_" aria-checked="false"><span>Adultos de 65 y más años</span><a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F338_NS_">Seleccionar todo</a><a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F338_NS_">Deseleccionar todo</a></span><br>
+ </div>
+
+ <div class="grp"><label>Servicio de Salud</label><br>
+  <select id="PRMT_SV_N16FFCEC0x3557F5A0_NS_" data-role="servicio" multiple size="10"></select><br>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557F5A0_NS_">Seleccionar todo</a>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557F5A0_NS_">Deseleccionar todo</a></div>
+
+ <div class="grp"><label>Tipo de Establecimiento</label><br>
+  <select id="PRMT_SV_N16FFCEC0x3557DBB8_NS_" data-role="tipo" multiple size="8"></select><br>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_SELECT_N16FFCEC0x3557DBB8_NS_">Seleccionar todo</a>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N16FFCEC0x3557DBB8_NS_">Deseleccionar todo</a></div>
+
+ <div class="grp"><label>Establecimiento</label><br>
+  <select id="PRMT_SV_N16FFCEC0x3557DED0_NS_" data-role="est" multiple size="10"></select><br>
+  <a href="javascript:void(0)">Seleccionar todo</a>
+  <a href="javascript:void(0)" id="PRMT_SV_LINK_DESELECT_N10070">Deseleccionar todo</a></div>
+
+ <button type="button" id="btnNueva">Nueva solicitud</button>
+</div>
+<div id="reporte" style="display:none"><!-- panel Herramientas, convive con los filtros -->
+ <h3>Reporte generado</h3>
+ <a href="javascript:void(0)" id="lnkExcel">Descargar como Excel</a>
+ <a href="javascript:void(0)" id="lnkVolver">Volver</a>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const R = rol => document.querySelector('[data-role="'+rol+'"]');
+document.querySelectorAll('input[type=checkbox]').forEach(c=>
+  c.addEventListener('change',()=>c.setAttribute('aria-checked', c.checked?'true':'false')));
+const fill = (sel, arr) => { sel.innerHTML=''; for (const [t,v] of arr) {
+    const o=document.createElement('option'); o.text=t; o.value=v; sel.add(o);} };
+
+const ANIOS = [2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015];
+fill(R('anio'), ANIOS.map(a=>[String(a),String(a)]));
+
+// Estado inicial idéntico al Cognos real
+setTimeout(()=>{ const a=R('anio');
+  for(const o of a.options) o.selected=(o.text==='2024'); refrescarSemanas(); }, 0);
+const SERVS = ['Talcahuano','Concepción','Arauco','Metropolitano Central','Aconcagua',
+  'Iquique','Ñuble','Metropolitano Norte','Chiloé','Antofagasta','Bíobío','Metropolitano Sur'];
+fill(R('servicio'), SERVS.map((s,i)=>[s,'S'+i]));
+
+fill(R('tipo'), ['Hospital','SAPU','SAR','SUR','CEAR','PAME'].map((t,i)=>[t,'T'+i]));
+
+// Semanas dependen de los años elegidos
+function refrescarSemanas(){
+  const sel=R('anio');
+  const anios=Array.from(sel.selectedOptions).map(o=>parseInt(o.text));
+  const out=[];
+  for (const a of anios.sort()) for (let w=1; w<=52; w++) out.push([a+' - Semana '+w, a+'_'+w]);
+  fill(R('semana'), out);
+}
+// (el año NO refresca las semanas: Cognos lo hace en el siguiente ciclo de solicitud)
+
+// Establecimientos dependen de servicio + tipo
+const EST = {
+ 'Metropolitano Central': ['SAPU Maipú','Hospital Clínico San Borja Arriarán','SAPU Consultorio Nº1',
+   'Hospital Clínico Metropolitano El Carmen Doctor Luis Valentín Ferrada','SAPU Padre Vicente Irarrázabal',
+   'SAR Enfermera Sofía Pincheira','SAPU Dra. Ana María Juricic','SAPU Dr. Norman Voulliéme',
+   'Hospital de Urgencia Asistencia Pública Dr. Alejandro del Río','SAPU San José de Chuchunco',
+   'SAPU Dr. Iván Insunza'],
+ 'Talcahuano': ['SAPU Talcahuano Sur','Hospital Las Higueras'],
+};
+function refrescarEst(){
+  const servs=Array.from(R('servicio').selectedOptions).map(o=>o.text);
+  const tipos=Array.from(R('tipo').selectedOptions).map(o=>o.text);
+  let out=[];
+  for (const s of servs) for (const e of (EST[s]||[])) {
+     const tipo = e.startsWith('Hospital')?'Hospital': e.startsWith('SAR')?'SAR':'SAPU';
+     if (!tipos.length || tipos.includes(tipo)) out.push([e, 'E'+out.length]);
+  }
+  fill(R('est'), out);
+}
+// (servicio y tipo NO refrescan la lista: Cognos lo hace en el siguiente ciclo)
+// Al cargar, la lista trae TODO el país y con varios ya marcados (como el real)
+setTimeout(()=>{ const out=[]; for(const s of SERVS) for(const e of (EST[s]||[])) out.push([e,'E'+out.length]);
+  // La lista real trae 644 opciones (todo Chile). Para las pruebas solo importan
+  // el NÚMERO y que estén los de Metropolitano Central: el script identifica esta
+  // lista por ser la de más opciones, y comprueba que la cascada la reduzca de 644
+  // a los del servicio elegido. Los nombres del relleno son irrelevantes, y se
+  // marcan como sintéticos a propósito para que nadie los confunda con datos reales.
+  while(out.length<644) out.push(['(relleno sintético) '+out.length,'E'+out.length]);
+  fill(R('est'), out);
+  const el=R('est');
+  for(let i=0;i<3;i++) if(el.options[i]) el.options[i].selected=true; }, 10);
+
+// Links "Seleccionar todo" genéricos (por contenedor)
+document.querySelectorAll('.grp').forEach(g=>{
+  const sel=g.querySelector('select'); if(!sel) return;
+  g.querySelectorAll('a').forEach(a=>{
+    const todo=/seleccionar todo/i.test(a.textContent);
+    a.addEventListener('click',()=>{
+      for(const o of sel.options) o.selected = todo;
+      sel.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+  });
+});
+
+$('btnNueva').addEventListener('click', ()=>{
+  const est=Array.from(R('est').selectedOptions).map(o=>o.text);
+  const anios=Array.from(R('anio').selectedOptions).map(o=>o.text);
+  const sem=R('semana').selectedOptions.length;
+  const cbs=Array.from(document.querySelectorAll('#prompts input[type=checkbox]')).filter(c=>c.checked).length;
+  window.__ultimaSolicitud={est,anios,semanas:sem,edades:cbs};
+  console.log('SOLICITUD '+JSON.stringify(window.__ultimaSolicitud));
+  setTimeout(()=>{
+    $('reporte').style.display='block';       // los filtros SIGUEN visibles
+    refrescarSemanas(); refrescarEst();       // el postback repuebla las cascadas
+    // …y REINICIA las selecciones al estado por defecto (lo que rompía todo):
+    setTimeout(()=>{
+      const a=R('anio'); for(const o of a.options) o.selected=(o.text==='2024');
+      for(const o of R('semana').options) o.selected=false;
+      for(const o of R('servicio').options) o.selected=false;
+      for(const o of R('tipo').options) o.selected=false;
+      document.querySelectorAll('#prompts input[type=checkbox]').forEach(c=>{
+        c.checked=false; c.setAttribute('aria-checked','false'); });
+      const e=R('est'); for(let i=0;i<e.options.length;i++) e.options[i].selected=(i<3);
+      console.log('PROMPTS REINICIADOS al estado por defecto');
+    }, 300);
+  }, 1200);
+});
+
+// Descarga vía POPUP, como hace Cognos
+$('lnkExcel').addEventListener('click', ()=>{
+  const s=window.__ultimaSolicitud||{};
+  const w=window.open('', '_blank');
+  w.document.write('<html><body>generando…</body></html>');
+  setTimeout(()=>{
+    const blob=new w.Blob([JSON.stringify(s)],{type:'application/vnd.ms-excel'});
+    const url=w.URL.createObjectURL(blob);
+    const a=w.document.createElement('a');
+    a.href=url; a.download='reporte.xlsx'; w.document.body.appendChild(a); a.click();
+  }, 300);
+});
+// Marcar un grupo de edad hace que Cognos re-renderice los prompts: ids NUEVOS.
+let _reRender=false;
+document.querySelectorAll('input[type=checkbox]').forEach(c=>c.addEventListener('change',()=>{
+  if(_reRender) return; _reRender=true;
+  setTimeout(()=>{
+    for (const suf of ['N16FFCEC0x3557F5A0','N16FFCEC0x3557DBB8','N16FFCEC0x3557DED0']) {
+      const sel=document.getElementById('PRMT_SV_'+suf+'_NS_');
+      if(sel) sel.id='PRMT_SV_'+suf+'_R2_';
+      for (const acc of ['SELECT','DESELECT']) {
+        const a=document.getElementById('PRMT_SV_LINK_'+acc+'_'+suf+'_NS_');
+        if(a) a.id='PRMT_SV_LINK_'+acc+'_'+suf+'_R2_';
+      }
+    }
+    console.log('RE-RENDER de prompts: ids cambiados');
+  }, 250);
+}));
+
+$('lnkVolver').addEventListener('click', ()=>{
+  $('reporte').style.display='none'; $('prompts').style.display='block';
+
+});
+</script></body></html>

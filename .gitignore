@@ -1,8 +1,19 @@
+# Datos descargados: no se versionan
 descargas/
+*.xlsx
+
+# Salida de las pruebas
+tests/_test_out/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+.venv/
+venv/
 .env
-.pytest_cache/
+
+# Editores / sistema
 .vscode/
-playwright-log.txt
-*.log
+.idea/
+.DS_Store
+Thumbs.db
